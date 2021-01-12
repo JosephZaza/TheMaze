@@ -1,87 +1,111 @@
-
-import javafx.application.Application;
-import javafx.geometry.Pos;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import java.util.Scanner;
 
 /**
  * Class Driver runs the game Maze.
  * @author Joseph Kern
  */
-public class Driver extends Application {
+public class Driver{
 
-  // Create Maze
-  public static Maze maze = new Maze();
-  
-  // Create Player
-  public static Player player = new Player(0);
-
-  // Set up scene
-  private static Text Description = new Text();
-  private static Label option = new Label("Option: ");
-  private static TextField optNum = new TextField();
-  private static Button doOption = new Button("Submit");
-
-
-  @Override
-  public void start(Stage primaryStage) throws Exception {  
-    maze.setUpLocations();
-    
-    Scene scene = new Scene(createBoard(player),300, 350);
-    primaryStage.setTitle("The Maze");
-    primaryStage.setScene(scene);
-    primaryStage.show();
+  /**
+   * setUpMaze instantiates the Maze object for the game.
+   * @return Maze object to use during the game.
+   */
+  public static Maze setUpMaze() {
+    Maze maze = new Maze();
+    maze.setUpLocations(maze);
+    return maze;
   }
   
   /**
-   * createBoard updates the screen according to the player's current position.
-   * @param player Player object to check location of.
-   * @return the new screen to display.
+   * setUpPlayer instantiates the Player object for the game.
+   * @return Player object to use during the game.
    */
-  public static BorderPane createBoard(Player player) {
-    Description.setText(maze.retrieveLocation(player.getCurrentLocation()).toString(player));
-    Description.setStyle("-fx-text-based-color: white;");
-    
-    HBox hbDescription = new HBox();
-    hbDescription.setPadding(new Insets(11, 12, 13, 12));
-    hbDescription.getChildren().add(Description);
-    hbDescription.setAlignment(Pos.CENTER);
-    
-    HBox hbOption = new HBox();
-    hbOption.getChildren().add(option);
-    option.setStyle("-fx-font-weight: bold");
-    hbOption.getChildren().add(optNum);
-    hbOption.getChildren().add(doOption);
-    doOption.setOnAction(e -> getOptionNum(player));
-    hbOption.setAlignment(Pos.CENTER);
-
-    BorderPane wholeBoard = new BorderPane();
-    wholeBoard.setPadding(new Insets(20));
-    wholeBoard.setCenter(hbDescription);
-    wholeBoard.setBottom(hbOption);
-    wholeBoard.setStyle("-fx-background-color: black;" + "-fx-text-based-color: white;");
-    
-    return wholeBoard;
+  public static Player setUpPlayer() {
+    Player player = new Player(0);
+    return player;
+  }
+  
+  /**
+   * openingScene displays the opening title scene.
+   * @return String to display to the screen.
+   */
+  public static String openingScene() {
+    String opening = "\nTHE\n" +
+        "   M         M       A       ZZZZZZZZEEEEEEEEEE\n" +
+        "   MM       MM      A A            Z E         \n" +
+        "   M M     M M     A   A          Z  E         \n" +
+        "   M  M   M  M    A     A        Z   EEEEE     \n" +
+        "   M   M M   M   AAAAAAAAA      Z    E         \n" +
+        "   M    M    M  A         A    Z     E         \n" +
+        "   M         M A           A  Z      E         \n" +
+        "   M         MA             AZZZZZZZZEEEEEEEEEE\n" +
+        "\n" +
+        "Please enter 1 to continue:";
+    return opening;
+  }
+  
+  /**
+   * rules displays the rules of the game.
+   * @return String to display to the screen.
+   */
+  public static String rules() {
+    String rules = "\nWelcome to \"The Maze!\"\n"
+        + "\n"
+        + "You stand before a large oak door.\n"
+        + "Do you dare enter? Do you risk your life?\n"
+        + "Enter 1 to open the door and begin\n"
+        + "your journey!";
+    return rules;
+  }
+  
+  /**
+   * end displays the ending text of the game.
+   * @return String to display to the screen.
+   */
+  public static String end() {
+    String copyright = "\u00a9";
+    String ending = "\nThank you for playing the maze.\n"
+        + "\nHope you have enjoyed your adventure!\n"
+        + "\n"
+        + "\n"
+        + "Coypright" + copyright + " Joseph Kern, 2021";
+    return ending;
   }
 
   /**
    * getOptionNum changes the player's current position based on the option they chose.
    * @param player Player object to change location of.
    */
-  public static void getOptionNum(Player player) {
-    int newOptNum = Integer.parseInt(optNum.getText()) - 1;
+  public static void getOptionNum(Maze maze, Player player, int newOptNum) {
     player.setCurrentLocation(maze.retrieveLocation(player.getCurrentLocation()).
-      retrieveOption(newOptNum).getPlayerDestination());
+      retrieveOption(newOptNum - 1).getPlayerDestination());
   }
 
   public static void main(String []args){
-    launch(args);
+    Maze maze = setUpMaze();
+    Player player = setUpPlayer();
+    Scanner scanner = new Scanner(System.in);
+    int goToRules = 0;
+    int play = 0;
+       
+    while (play != 1) {
+      while (goToRules != 1) {
+        System.out.println(openingScene());
+        goToRules = scanner.nextInt();
+      }
+      System.out.println(rules());
+      play = scanner.nextInt();
+    }
+    
+    while (maze.retrieveLocation(player.getCurrentLocation()).getChallenge() != "End") {
+      System.out.println("\n" + maze.retrieveLocation(player.getCurrentLocation()).toString(player));
+      int newOptNum = scanner.nextInt();
+      getOptionNum(maze, player, newOptNum);
+    }
+    
+    System.out.println("\n" + maze.retrieveLocation(player.getCurrentLocation()).toString(player));
+    System.out.println(end());
+    
+    scanner.close();
   }
 }

@@ -7,13 +7,13 @@ import java.util.List;
  */
 public class Maze {
 
-  private static List<Location> Locations = new ArrayList<Location>();
+  private List<Location> Locations = new ArrayList<Location>();
 
   /**
    * AddLocation adds a new Location object to the locations ArrayList.
    * @param newLocation Location object to be added.
    */
-  public static void addLocation(Location newLocation){
+  public void addLocation(Location newLocation){
     Locations.add(newLocation);
   }
 
@@ -29,11 +29,11 @@ public class Maze {
   /**
    * setUpLocations builds all of the locations of the Maze.
    */
-  public void setUpLocations(){
+  public void setUpLocations(Maze maze){
     // Start
     Location start = new Location();
     start.setChallenge("");
-    start.setDescription("Welcome to the beginning of the Maze!");
+    start.setDescription("You've entered the maze into a hallway.");
     start.addOption(new Option("Turn left.", 2));
     start.addOption(new Option("Turn right.", 1));
 
@@ -59,9 +59,9 @@ public class Maze {
     location3.addOption(new Option("Turn around.", 2));
 
     // Add Locations to Maze
-    Maze.addLocation(start);
-    Maze.addLocation(location1);
-    Maze.addLocation(location2);
-    Maze.addLocation(location3);
+    maze.addLocation(start);
+    maze.addLocation(location1);
+    maze.addLocation(location2);
+    maze.addLocation(location3);
   }
 }
