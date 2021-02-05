@@ -1,5 +1,3 @@
-import javafx.scene.text.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,53 +71,53 @@ public class Location {
     if (getChallenge() != "") {
       switch(getChallenge()) {
         case "Potion":
-          output += "In the corner of the room there is a potion. You retrieve it.\n";
+          output += "You entered a dark room. In the corner of the room there is a potion. You retrieve it.\n\n";
           player.setHasPotion(true);
           break;
         case "Sword":
-          output += "You find an ancient sword lying on the floor and pick it up.\n";
+          output += "You find an ancient sword lying on the floor and pick it up.\n\n";
           player.setHasSword(true);
           break;
         case "Ghost":
           if (!player.getHasPotion()){
             output += "You are confronted by a ghost who sees you. It strikes at you and "
-                                + "you are sent to beginning of the Maze!\n";
+                                + "you are sent to beginning of the Maze!\n\n";
             player.setCurrentLocation(0);
             return output;
           }
           else {
             output += "You are confronted by a ghost but since you have the potion you " +
-                                "are able to avoid its attacks and pass safely by.\n";
+                                "are able to avoid its attacks and pass safely by.\n\n";
           }
         case "Minotaur":
           if (!player.getHasSword()) {
             output += "You are confronted by a massive Minotaur. Without any type of " +
                                 "weapon you are useless to confront it and are sent back to the " +
-                                "start of the Maze!\n";
+                                "start of the Maze!\n\n";
             player.setCurrentLocation(0);
             return output;
           }
           else {
             output += "You are confronted by a massive Minotaur. You pull out the sword " +
                                 "you found and are able to fight off the beast. " +
-                                "You pass by safely.\n";
+                                "You pass by safely.\n\n";
           }
           break;
         case "Grail":
-          output += "You have found a secret treasure at the heart of the Maze. Legend " +
-                              "has told of the magic this grail possesses. You take it with you.\n";
+          output += "You have found a secret treasure at the h eart of the Maze. Legend " +
+                              "has told of the magic this grail possesses. You take it with you.\n\n";
           player.setHasGrail(true);
           break;
         case "End":
           if (!player.getHasGrail()) {
             output += "You have made it to the end, and because you found the secret treasure at " +
                         "the heart of the Maze you will be rewarded an extra 100 points. " +
-                        "Congratulations brave hero!\n";
+                        "Congratulations brave hero!\n\n";
           }
           else {
             output += "You have made it to the end. Legend speaks of a secret treasure at the " +
                         "heart of the Maze. It is a shame you were unable to find it. " +
-                        "Congratulations brave hero!\n";
+                        "Congratulations brave hero!\n\n";
           }
           return output;
       }
@@ -132,8 +130,9 @@ public class Location {
       output += "Option " + optNum + ": " + Options.get(i).getOptionDescription() + "\n";
     }
 
-    output += "\nPlease enter the number of the option you wish to do.\nOption: ";
-
+    if (getChallenge() != "End") {
+      output += "\nPlease enter the number of the option you wish to do.\nOption: ";
+    }
 
     return output;
   }

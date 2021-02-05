@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Class Option represents an option for the player to make at each location.
  * @author Joseph Kern
