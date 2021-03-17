@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Class Maze represents a maze for players to navigate.
  * @author Joseph Kern
@@ -30,6 +31,7 @@ public class Maze {
    * setUpLocations builds all of the locations of the Maze.
    */
   public void setUpLocations(Maze maze){
+
     // Start
     Location start = new Location();
     start.setChallenge("");
@@ -79,8 +81,7 @@ public class Maze {
     location6.setDescription("You've come to a junction.");
     location6.addOption(new Option("Take the path to your left.", 10));
     location6.addOption(new Option("Contiinue forward.", 7));
-    location6.addOption(new Option("Turn around.", 5));
-    
+    location6.addOption(new Option("Turn around.", 5)); 
     // Location7
     Location location7 = new Location();
     location7.setChallenge("");

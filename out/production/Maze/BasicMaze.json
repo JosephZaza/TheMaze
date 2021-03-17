@@ -1,0 +1,10 @@
+{
+  "locations": [
+    {"id":"start", "challenge":"", "description":"You've entered the maze into a hallway.", "options":{"option1":["Turn left.", 2], "option2":["Turn right.", 2]}},
+    {"id":"location1", "challenge":"", "description":"You've reached a dead end", "options":{"option1":["Turn around.", 0]}},
+    {"id":"location2", "challenge":"", "description":"You've reached a right turn.", "options":{"option1":["Turn right.", 3], "option2":["Turn around.", 0]}},
+    {"id":"location3", "challenge":"", "description":"You've reached a door and a path to your right.", "options":{"option1":["Enter room.", 4], "option2":["Turn right.", 5], "option3":["Turn around.", 2]}},
+    {"id":"location4", "challenge":"Potion", "description":"", "options":{"option1":["Leave through the door you came in.", 3]}},
+    {"id":"location5", "challenge":"", "description":"You've come to a fork in the road.", "options":{"option1":["Turn left.", 13], "option2":["Turn right.", 6], "option3":["Turn around.", 3]}}
+  ]
+}
