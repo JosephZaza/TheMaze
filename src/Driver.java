@@ -9,8 +9,9 @@ public class Driver{
   /**
    * setUpMaze instantiates the Maze object for the game.
    * @return Maze object to use during the game.
+   * @throws Exception 
    */
-  public static Maze setUpMaze() {
+  public static Maze setUpMaze() throws Exception {
     Maze maze = new Maze();
     maze.setUpLocations(maze);
     return maze;
@@ -81,7 +82,7 @@ public class Driver{
       retrieveOption(newOptNum - 1).getPlayerDestination());
   }
 
-  public static void main(String []args){
+  public static void main(String []args) throws Exception{
     Maze maze = setUpMaze();
     Player player = setUpPlayer();
     Scanner scanner = new Scanner(System.in);
